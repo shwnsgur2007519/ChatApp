@@ -1,18 +1,21 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import ChatPage from './pages/ChatPage';
+import PrivateRoute from './routes/PrivateRoute';
 
 function App() {
-  const [message, setMessage] = useState<string>('');
-
-  useEffect(() => {
-    fetch('http://localhost:8000/api/hello/')
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  }, []);
-  
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>{message}</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/chat" />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/chat" element={
+          <PrivateRoute>
+            <ChatPage />
+          </PrivateRoute>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

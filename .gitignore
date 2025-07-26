@@ -1,2 +1,6 @@
 venv
 backend/db.sqlite3
+.code-workspace
+*.pyc
+*.pyo
+__pycache__
